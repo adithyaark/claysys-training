@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Grid Layout Example</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+        }
+
+        /* grid container */
+        .grid-container {
+            display: grid;
+
+            /* rows */
+            grid-template-rows: auto 1fr auto;
+
+            /* columns */
+            grid-template-columns: 1fr 3fr;
+
+            /* grid areas */
+            grid-template-areas:
+                "header header"
+                "sidebar content"
+                "footer footer";
+
+            gap: 6px;
+            height: 100vh;
+        }
+
+        header {
+            grid-area: header;
+            background: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        aside {
+            grid-area: sidebar;
+            background: #dcdcdc;
+            padding: 10px;
+        }
+
+        main {
+            grid-area: content;
+            background: #dcdcdc;
+            padding: 10px;
+        }
+
+        footer {
+            grid-area: footer;
+            background: #4caf50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        /* media query */
+        @media (max-width: 768px) {
+          .grid-container {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto auto auto auto;
+            grid-template-areas:
+                "header"
+                "sidebar"
+                "content"
+                "footer";
+            height: auto;
+          }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="grid-container">
+
+        <header>
+            <h1>Grid Layout Example</h1>
+        </header>
+
+        <aside>
+            Sidebar
+        </aside>
+
+        <main>
+            Main Content Area
+        </main>
+
+        <footer>
+            2026 Grid Layout Example
+        </footer>
+
+    </div>
+
+</body>
+</html>
