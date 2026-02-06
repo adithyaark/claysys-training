@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS Basics Review</title>
+
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, sans-serif;
+                background: #f2f2f2;
+            }
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+                background: white;
+                border: 2px solid #ccc;
+            }
+
+            header {
+                background: #ddd;
+                text-align: center;
+                padding: 15px;
+            }
+
+            nav {
+                background: #333;
+                text-align: center;
+            }
+
+            nav a {
+                display: inline-block;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+            }
+
+            nav a:hover {
+                background-color: blue;
+            }
+
+            /* section-css */
+            .section {
+                background: #e6e6e6;
+                padding: 15px;
+                margin: 15px;
+            }
+
+            /* pseudoclass-css */
+            ul li:hover {
+                background-color: blue;
+            }
+
+            /* intro-css */
+            .intro p {
+                font-size: 18px;
+                color: #333;
+                line-height: 1.5;
+            }
+            
+            /* box-css */
+            .box-container {
+                white-space: nowrap;
+            }
+
+            .box {
+                display: inline-block;
+                width: 30%;
+                background: #f9f9f9;
+                border: 1px solid #bbb;
+                padding: 15px;
+                margin-right: 1%;
+                vertical-align: top;
+                white-space: normal;
+            }
+            .section-box {
+                background-color: #ffffff;
+                padding: 16px;
+            }
+
+            /* pseudo-elements-css */
+            .decorated::before {
+                content: "Start: ";
+                color: green;
+                font-weight: bold;
+            }
+
+            .decorated::after {
+                content: " :End";
+                color: green;
+                font-weight: bold;
+            }
+
+            footer {
+                background: #ddd;
+                text-align: center;
+                padding: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <!-- header with navigation bar -->
+            <header>
+                <h1>CSS Basics Review</h1>
+
+                <nav>
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Contact</a>
+                </nav>
+            </header>
+
+            <!-- intro text -->
+            <section class="section intro">
+                <h2>Introduction:</h2>
+
+                <p>
+                    This is a brief introduction paragraph that uses different text properties such as font-size, color, and line-height.
+                </p>
+            </section>
+
+            <!-- content boxes -->
+            <section class="section-box">
+                <div class="box-container">
+                    <div class="box">
+                        <h3>Box 1: Title</h3>
+                        <p>Content 1</p>
+                        <p>Background, Borders, Margins, Padding</p>
+                    </div>
+
+                    <div class="box">
+                        <h3>Box 2: Title</h3>
+                        <p>Content 2</p>
+                        <p>Background, Borders, Margins, Padding</p>
+                    </div>
+
+                    <div class="box">
+                        <h3>Box 3: Title</h3>
+                        <p>Content 3</p>
+                        <p>Background, Borders, Margins, Padding</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- pseudo classes and elements -->
+            <section class="section">
+                <h2>Pseudo-Classes Example:</h2>
+
+                <ul>
+                    <li>Item 1 (hover, active, etc.)</li>
+                    <li>Item 2</li>
+                </ul>
+
+                <h2>Pseudo-Elements Example:</h2>
+
+                <p class="decorated">
+                    ::before and ::after applied to this paragraph
+                </p>
+            </section>
+
+            <footer>
+                2026 CSS Basics Review
+            </footer>
+        </div>
+    </body>
+</html>

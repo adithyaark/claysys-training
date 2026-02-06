@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS Selectors </title>
+        <style>
+            /* Universal Selector */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #f2f2f2;
+            }
+
+            .container {
+                width: 95%;
+                margin: 20px auto;
+                background: white;
+                border: 2px solid #ccc;
+                padding: 10px;
+            }
+
+            header {
+                text-align: center;
+                padding: 15px;
+                background: #ddd;
+            }
+
+            nav {
+                background-color: #333;
+                text-align: center;
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px;
+            }
+
+            nav a {
+                color: white;
+                text-decoration: none;
+                padding: 8px 20px;
+                display: inline-block;
+            }
+
+            nav a:hover {
+                background-color: blue;
+            }
+
+            /* section */
+            .section {
+                background-color: #e6e6e6;
+                width: 100%;
+                padding: 15px;
+                margin: 12px 0;
+            }
+
+            p {
+                margin-top: 5px;
+            }
+
+            /* class selector(highlight) */
+            .highlight {
+                background-color: yellow;
+            }
+
+            /* id selector */
+            #unique {
+                color: red;
+            }
+
+            /* attribute selector */
+            input[type="text"] {
+                border: 2px solid #888;
+                width: 350px;
+            }
+
+            /* descendant selector*/
+            .descendant p {
+                color: blue;
+            }
+
+            /* child selector */
+            .child > li {
+                color: green;
+                font-style: italic;
+            }
+
+            /* adjacent sibling selector */
+            .section.adjacent h3 + p {
+                font-weight: bold;
+            }
+
+            /* general sibling selector */
+            h5 ~ p {
+                text-decoration: underline;
+            }
+
+            footer {
+                text-align: center;
+                background: #ddd;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header>
+                <h1>CSS Selectors Practice</h1>
+
+                <nav>
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Contact</a>
+                </nav>
+            </header>
+
+            <!-- universal selector -->
+            <div class="section">
+                <h3>Universal Selector Example</h3>
+                <p>This paragraph is styled using the universal selector(*) which applies to all elements.</p>
+            </div>
+
+            <!-- type selector -->
+            <div class="section">
+                <h3>Type Selector Example</h3>
+                <h4>Heading and Paragraphs</h4>
+                <p>This paragraph is styled using the type selector</p>
+            </div>
+
+            <!-- class selector -->
+            <div class="section highlight">
+                <h3>Class Selector Example</h3>
+                <p>This section is styled using a class selector named highlight.</p>
+            </div>
+
+
+            <!-- id selector -->
+            <div class="section" id="unique">
+                <h3>ID Selector Example</h3>
+                <p>This section is styled using an ID selector named #unique.</p>
+            </div>
+
+            <!-- attribute selector -->
+            <div class="section">
+                <h3>Attribute Selector Example</h3>
+                <label>Type your name:</label><br>
+                <input type="text" placeholder="Your Name">
+            </div>
+
+            <!-- descdendant selector -->
+            <div class="section descendant">
+                <h3>Descendant Selector Example</h3>
+                <div>
+                    <p>This paragraph is inside a div and styled by a descendant selector (div p)</p>
+                </div>
+            </div>
+
+            <!-- child selector -->
+            <div class="section">
+                <h3>Child selector Example</h3>
+                <ul class="child">
+                    <li>First child item styled using child selecto(ul > li).</li>
+                    <li>Another child item in the list.</li>
+                </ul>
+            </div>
+
+            <!-- adjacent sibling selector -->
+            <div class="section adjacent">
+                <h3>Adjacent Sibling Selector Example</h3>
+                <h4>This is a heading</h4>
+                <p>This paragraph is styled as an adjacent sibling to the above heading(h3 + p)</p>
+            </div>
+
+            <!-- general sibling -->
+            <div class="section">
+                <h3>General Sibling Selector Example</h3>
+                <h5>Another heading</h5>
+                <p>This paragrapph is style as a general sibling to the above heading(h5 ~ p)</p>
+                <p>Another sibling paragraph styled the same way</p>
+            </div>
+
+            <!-- footer  -->
+            <footer>
+                2026 CSS Selectors Practice
+            </footer>
+
+        </div>
+    </body>
+</html>
