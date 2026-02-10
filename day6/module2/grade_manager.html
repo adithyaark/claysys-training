@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Grades Manager</title>
+    <style>
+        body { 
+          font-family: Arial, sans-serif; 
+          display: flex; 
+          justify-content: center; 
+          padding: 20px; }
+        .container {
+          border: 2px solid #00aeef; 
+          padding: 30px; 
+          border-radius: 8px; 
+          width: 350px; 
+          text-align: center; }
+        h2 { 
+          margin-top: 0; }
+        input { 
+          width: 90%; 
+          padding: 10px; 
+          margin: 10px 0; 
+          border: 1px solid #ddd; 
+          border-radius: 4px; }
+        button { 
+          width: 100%; 
+          padding: 10px; 
+          background-color: #007bff; 
+          color: white; 
+          border: none; 
+          border-radius: 4px; 
+          cursor: pointer; 
+          margin: 5px 0; 
+          font-weight: bold; }
+        button:hover { 
+          background-color: #0056b3; }
+        .list-container {
+          text-align: left; 
+          margin-top: 20px; 
+          min-height: 50px; }
+        ol { 
+          padding-left: 20px; }
+        .average-section { 
+          margin-top: 20px; 
+          font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Student Grades Manager</h2>
+    
+    <label>Student Name:</label>
+    <input type="text" id="studentName" placeholder="Enter student name">
+    
+    <label>Grade:</label>
+    <input type="number" id="studentGrade" placeholder="Enter grade (0-100)">
+
+    <button onclick="addStudent()">Add Student</button>
+    <button onclick="displayGrades()">Display Grades</button>
+
+    <div class="list-container">
+        <strong>Grades List:</strong>
+        <ol id="gradesList"></ol>
+    </div>
+
+    <button onclick="calculateAverage()">Calculate Average Grade</button>
+
+    <div class="average-section">
+        Average Grade: <span id="averageDisplay"></span>
+    </div>
+</div>
+
+<script>
+    // array(students)
+    let students = [];
+
+    function addStudent() {
+        const nameInput = document.getElementById('studentName');
+        const gradeInput = document.getElementById('studentGrade');
+        const name = nameInput.value.trim();
+        const grade = parseFloat(gradeInput.value);
+
+        // validation(numeric and range 0-100)
+        if (name === "" || isNaN(grade) || grade < 0 || grade > 100) {
+            alert("Please enter a valid name and a grade between 0 and 100.");
+            return;
+        }
+
+        // push to array
+        students.push({ name: name, grade: grade });
+
+        // Clear inputs
+        nameInput.value = "";
+        gradeInput.value = "";
+        alert(`${name} added successfully!`);
+    }
+
+    function displayGrades() {
+        const listElement = document.getElementById('gradesList');
+
+        listElement.innerHTML = "";
+
+        // mapping array
+        students.map(student => {
+            const li = document.createElement('li');
+            li.textContent = `${student.name} - ${student.grade}`;
+            listElement.appendChild(li);
+        });
+    }
+
+    function calculateAverage() {
+        if (students.length === 0) {
+            document.getElementById('averageDisplay').textContent = "0";
+            return;
+        }
+
+        // calculate avg
+        const total = students.reduce((sum, student) => sum + student.grade, 0);
+        const average = total / students.length;
+
+        document.getElementById('averageDisplay').textContent = average.toFixed(2);
+    }
+</script>
+
+</body>
+</html>
