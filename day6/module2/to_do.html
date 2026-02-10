@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic To-Do List</title>
+    <style>
+        body { 
+            font-family: sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            padding: 40px; 
+            background-color: #f4f4f4; 
+        }
+        .todo-container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 8px; 
+            border: 1px solid #ccc;
+            width: 400px; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h2 { 
+            margin-top: 0; 
+            font-size: 28px; 
+        }
+        .input-group { 
+            display: flex; 
+            gap: 10px; 
+            margin-bottom: 20px; 
+        }
+        input[type="text"] { 
+            flex-grow: 1; 
+            padding: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+        }
+        .add-btn { 
+            background-color: #007bff; 
+            color: white; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            font-weight: bold;
+        }
+        ul { 
+            list-style: none; 
+            padding: 0; 
+        }
+        li { 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 0; 
+            border-bottom: 1px solid #eee; 
+        }
+        .task-text { 
+            flex-grow: 1; 
+            margin: 0 15px; 
+            cursor: pointer; 
+        }
+        .completed { 
+            text-decoration: line-through; 
+            color: #888; 
+        }
+        .delete-btn { 
+            background-color: #dc3545; 
+            color: white; 
+            border: none; 
+            padding: 5px 10px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        input[type="checkbox"] { 
+            transform: scale(1.2); 
+            cursor: pointer; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="todo-container">
+        <h2>To-Do List</h2>
+        
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Enter new task">
+            <button class="add-btn" onclick="handleAddTask()">Add Task</button>
+        </div>
+
+        <ul id="taskList">
+            <!-- Tasks will simplify appear here -->
+        </ul>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const taskList = document.getElementById('taskList');
+
+        // Task creation logic
+        function createTaskElement(text) {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <input type="checkbox" class="complete-check">
+                <span class="task-text">${text}</span>
+                <button class="delete-btn">Delete</button>
+            `;
+            return li;
+        }
+
+        // Action Handlers
+        function handleAddTask() {
+            const text = taskInput.value.trim();
+            if (text === "") {
+                alert("Please enter a task!");
+                return;
+            }
+            
+            const newTask = createTaskElement(text);
+            taskList.appendChild(newTask);
+            taskInput.value = ""; 
+        }
+
+        function toggleTaskCompletion(taskSpan, checkbox) {
+            taskSpan.classList.toggle('completed');
+            checkbox.checked = taskSpan.classList.contains('completed');
+        }
+
+        function removeTask(taskItem) {
+            taskItem.remove();
+        }
+
+        // Event delegation
+        taskList.addEventListener('click', (event) => {
+            const target = event.target;
+            const parentLi = target.closest('li');
+
+            if (!parentLi) return;
+
+            // Clicked delete button
+            if (target.classList.contains('delete-btn')) {
+                removeTask(parentLi);
+            } 
+            // Clicked task text or checkbox
+            else if (target.classList.contains('task-text') || target.classList.contains('complete-check')) {
+                const span = parentLi.querySelector('.task-text');
+                const checkbox = parentLi.querySelector('.complete-check');
+                // Avoid toggling twice if clicking checkbox directly
+                if (target !== checkbox) {
+                    toggleTaskCompletion(span, checkbox);
+                } else {
+                     // If checkbox clicked, just sync style
+                     span.classList.toggle('completed', checkbox.checked);
+                }
+            }
+        });
+
+        // Enter key for adding tasks
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAddTask();
+        });
+    </script>
+
+</body>
+</html>
