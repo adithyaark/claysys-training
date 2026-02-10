@@ -14,10 +14,16 @@ body {
 }
 
 /* sidebar */
+
+.logo::before {
+  content: "Pick ";
+  color: rgb(29, 192, 221);
+  font-weight: bold;
+}
 .logo {
   font-weight: bold;
   font-size: 18px;
-  color: #2eaed2;
+  color: #080808;
   margin-bottom: 25px;
 }
 
