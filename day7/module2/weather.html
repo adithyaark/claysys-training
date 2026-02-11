@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+
+        .dashboard {
+            width: 450px;
+            background: white;
+            padding: 30px;
+            border: 1px solid #00a2ed;
+            border-radius: 4px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 { font-size: 24px; margin-top: 0; }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 30px;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-right: none;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: 1px solid #007bff;
+            cursor: pointer;
+        }
+
+        button:hover { background-color: #0056b3; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        .label { color: #333; }
+        .value { color: #000; font-weight: 500; }
+
+        #weatherIcon {
+            font-size: 40px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>Weather Dashboard</h1>
+
+    <div class="search-box">
+        <input type="text" id="cityInput" placeholder="Enter city name">
+        <button onclick="fetchWeather()">Search</button>
+    </div>
+
+    <div id="errorMsg" class="error">City not found. Please try again.</div>
+
+    <div class="data-row">
+        <span class="label">City Name:</span>
+        <span id="cityName" class="value"></span>
+    </div>
+    <div class="data-row">
+        <span class="label">Temperature:</span>
+        <span id="temp" class="value"></span>
+    </div>
+    <div class="data-row">
+        <span class="label">Humidity:</span>
+        <span id="humidity" class="value"></span>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <span class="label">Weather Icon:</span><br>
+        <div id="weatherIcon"></div>
+    </div>
+</div>
+
+<script>
+    // fetch weather using wttr
+    async function fetchWeather() {
+        const city = document.getElementById('cityInput').value;
+        const errorMsg = document.getElementById('errorMsg');
+        
+        if (!city) return;
+
+        try {
+            // JSON data from wttr
+            const response = await fetch(`https://wttr.in/${city}?format=j1`);
+            
+            if (!response.ok) throw new Error("Network response was not ok");
+
+            const data = await response.json();
+
+            // update UI with fetched data
+            updateUI(city, data);
+            errorMsg.style.display = 'none';
+
+        } catch (error) {
+            console.error("Fetch error:", error);
+            errorMsg.style.display = 'block';
+        }
+    }
+
+    function updateUI(city, data) {
+        // get current weather
+        const current = data.current_condition[0];
+        
+        document.getElementById('cityName').textContent = city.charAt(0).toUpperCase() + city.slice(1);
+        document.getElementById('temp').textContent = `${current.temp_C}°C`;
+        document.getElementById('humidity').textContent = `${current.humidity}%`;
+        
+        // mapping emojis
+        const desc = current.weatherDesc[0].value.toLowerCase();
+        let icon = "☀️";
+        if (desc.includes("cloud")) icon = "☁️";
+        if (desc.includes("rain")) icon = "🌧️";
+        if (desc.includes("snow")) icon = "❄️";
+        if (desc.includes("thunder")) icon = "⚡";
+
+        document.getElementById('weatherIcon').textContent = icon;
+    }
+</script>
+
+</body>
+</html>
