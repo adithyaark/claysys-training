@@ -66,34 +66,35 @@
 </head>
 <body>
 
-<div class="calculator-container">
-    <div class="calculator-frame">
-        <div id="display">0</div>
-        
-        <div class="grid">
-            <button onclick="handleInput('7')">7</button>
-            <button onclick="handleInput('8')">8</button>
-            <button onclick="handleInput('9')">9</button>
-            <button onclick="handleOperator('/')">/</button>
+    <div class="calculator-container">
+        <h1>TypeScript Calculator</h1>
+        <div class="calculator-frame">
+            <div id="display">0</div>
+            
+            <div class="grid">
+                <button onclick="handleInput('7')">7</button>
+                <button onclick="handleInput('8')">8</button>
+                <button onclick="handleInput('9')">9</button>
+                <button onclick="handleOperator('/')">/</button>
 
-            <button onclick="handleInput('4')">4</button>
-            <button onclick="handleInput('5')">5</button>
-            <button onclick="handleInput('6')">6</button>
-            <button onclick="handleOperator('*')">*</button>
+                <button onclick="handleInput('4')">4</button>
+                <button onclick="handleInput('5')">5</button>
+                <button onclick="handleInput('6')">6</button>
+                <button onclick="handleOperator('*')">*</button>
 
-            <button onclick="handleInput('1')">1</button>
-            <button onclick="handleInput('2')">2</button>
-            <button onclick="handleInput('3')">3</button>
-            <button onclick="handleOperator('-')">-</button>
+                <button onclick="handleInput('1')">1</button>
+                <button onclick="handleInput('2')">2</button>
+                <button onclick="handleInput('3')">3</button>
+                <button onclick="handleOperator('-')">-</button>
 
-            <button onclick="handleInput('0')">0</button>
-            <button onclick="handleClear()">C</button>
-            <button onclick="handleCalculate()">=</button>
-            <button onclick="handleOperator('+')">+</button>
+                <button onclick="handleInput('0')">0</button>
+                <button onclick="handleClear()">C</button>
+                <button onclick="handleCalculate()">=</button>
+                <button onclick="handleOperator('+')">+</button>
+            </div>
         </div>
     </div>
-</div>
 
-<script src="./src/index.js"></script>
+    <script src="dist/index.js"></script>
 </body>
 </html>
