@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypeScript Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator-container {
+            border: 2px solid #00aeef; 
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .calculator-frame {
+            border: 1px solid #333;
+            padding: 15px;
+        }
+
+        #display {
+            width: 100%;
+            height: 50px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 60px);
+            gap: 10px;
+        }
+
+        button {
+            width: 60px;
+            height: 50px;
+            border: 1px solid #666;
+            background: #efefef;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #e0e0e0;
+        }
+
+        button:active {
+            background: #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator-container">
+    <div class="calculator-frame">
+        <div id="display">0</div>
+        
+        <div class="grid">
+            <button onclick="handleInput('7')">7</button>
+            <button onclick="handleInput('8')">8</button>
+            <button onclick="handleInput('9')">9</button>
+            <button onclick="handleOperator('/')">/</button>
+
+            <button onclick="handleInput('4')">4</button>
+            <button onclick="handleInput('5')">5</button>
+            <button onclick="handleInput('6')">6</button>
+            <button onclick="handleOperator('*')">*</button>
+
+            <button onclick="handleInput('1')">1</button>
+            <button onclick="handleInput('2')">2</button>
+            <button onclick="handleInput('3')">3</button>
+            <button onclick="handleOperator('-')">-</button>
+
+            <button onclick="handleInput('0')">0</button>
+            <button onclick="handleClear()">C</button>
+            <button onclick="handleCalculate()">=</button>
+            <button onclick="handleOperator('+')">+</button>
+        </div>
+    </div>
+</div>
+
+<script src="./src/index.js"></script>
+</body>
+</html>
