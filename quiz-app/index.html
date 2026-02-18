@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/quiz-user.css" />
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <!-- nav bar -->
+    <nav class="nav">
+      <div class="nav-brand">Quiz<span></span></div>
+      <div class="nav-links">
+        <button
+          class="btn btn-ghost btn-sm is-active"
+          data-nav="home"
+          onclick="go('home')"
+        >
+          Home
+        </button>
+        <button
+          class="btn btn-ghost btn-sm"
+          data-nav="admin"
+          onclick="go('admin')"
+        >
+          Admin
+        </button>
+      </div>
+    </nav>
+
+    <!-- toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- P1 - course selcetion -->
+    <div class="page active" id="page-home">
+      <div class="wrap">
+        <div class="sh">
+          <h1>Pick a course</h1>
+          <p>Enter your name on the card and hit Start.</p>
+        </div>
+        <div class="course-grid" id="course-grid">
+          <!-- home.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- P2 - quiz -->
+    <div class="page" id="page-quiz">
+      <!-- top bar -->
+      <div class="quiz-bar">
+        <div class="qb-left" id="qb-course">Course</div>
+        <div class="qb-right">👤 <span id="qb-user">User</span></div>
+      </div>
+
+      <!-- progress bar -->
+      <div class="wrap-sm" style="padding-bottom: 0; padding-top: 20px">
+        <div class="prog-label">
+          <span
+            >Question <span id="prog-cur">1</span> of
+            <span id="prog-tot">10</span></span
+          >
+        </div>
+        <div class="prog-track">
+          <div class="prog-fill" id="prog-fill" style="width: 10%"></div>
+        </div>
+      </div>
+
+      <!-- question -->
+      <div class="question-wrap">
+        <div class="q-tag" id="q-tag">Question 1 of 10</div>
+        <div class="q-text" id="q-text">Loading…</div>
+        <div class="options" id="options"><!-- quiz.js --></div>
+        <div class="q-nav">
+          <div></div>
+          <button class="btn btn-primary" id="btn-next" onclick="Quiz.next()">
+            Next →
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- P3-summary -->
+    <div class="page" id="page-summary">
+      <div class="wrap-sm">
+        <div class="card">
+          <div class="summary-score">
+            <div class="score-num" id="sum-score">—</div>
+            <div class="score-label">
+              Score &nbsp;·&nbsp; <span id="sum-pct">—</span>
+            </div>
+            <div class="score-grade" id="sum-grade"></div>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-box ok">
+              <div class="sv" id="sum-correct">0</div>
+              <div class="sl">Correct</div>
+            </div>
+            <div class="stat-box bad">
+              <div class="sv" id="sum-wrong">0</div>
+              <div class="sl">Wrong</div>
+            </div>
+            <div class="stat-box blue">
+              <div class="sv" id="sum-total">0</div>
+              <div class="sl">Total</div>
+            </div>
+          </div>
+
+          <div class="summary-actions">
+            <button class="btn btn-ghost" onclick="go('home')">
+              Choose another course
+            </button>
+            <button class="btn btn-primary" onclick="go('admin')">
+              View Leaderboard
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- P4-admin -->
+    <div class="page" id="page-admin">
+      <div class="admin-shell">
+        <!-- sidebar -->
+        <aside class="admin-side">
+          <div class="side-label">Admin</div>
+          <button
+            class="side-btn is-active"
+            data-tab="dashboard"
+            onclick="Admin.switchTab('dashboard')"
+          >
+            Dashboard
+          </button>
+          <button
+            class="side-btn"
+            data-tab="questions"
+            onclick="Admin.switchTab('questions')"
+          >
+            Questions
+          </button>
+          <button
+            class="side-btn"
+            data-tab="leaderboard"
+            onclick="Admin.switchTab('leaderboard')"
+          >
+            Leaderboard
+          </button>
+        </aside>
+
+        <!-- main -->
+        <main class="admin-main">
+          <!-- dashboard -->
+          <div class="tab-pane is-active" id="tab-dashboard">
+            <div class="sh">
+              <h1>Admin Dashboard</h1>
+              <p>Overview of the quiz app.</p>
+            </div>
+
+            <div class="stat-cards">
+              <div class="stat-card">
+                <div class="sc-num" id="dash-courses">—</div>
+                <div class="sc-lbl">Courses</div>
+              </div>
+              <div class="stat-card">
+                <div class="sc-num" id="dash-custom">—</div>
+                <div class="sc-lbl">Custom questions</div>
+              </div>
+              <div class="stat-card">
+                <div class="sc-num" id="dash-quizzes">—</div>
+                <div class="sc-lbl">Quizzes taken</div>
+              </div>
+            </div>
+
+            <div class="card">
+              <p class="t-muted">
+                Use the sidebar to manage questions and view the leaderboard.
+              </p>
+            </div>
+          </div>
+
+          <!-- questions -->
+          <div class="tab-pane" id="tab-questions">
+            <div class="sh">
+              <h1>Create/Edit Questions</h1>
+              <p>Add, edit or delete custom questions.</p>
+            </div>
+
+            <!-- add form -->
+            <div class="form-panel" id="q-form-panel">
+              <h3>Add question</h3>
+
+              <div class="field">
+                <label>Course</label>
+                <select class="input" id="q-course" style="max-width: 280px">
+                  <!-- admin.js -->
+                </select>
+              </div>
+
+              <div class="field">
+                <label>Question text</label>
+                <input
+                  class="input"
+                  id="admin-q-text"
+                  placeholder="Type your question…"
+                />
+                <div class="field-error" id="q-err-text">
+                  Question text is required.
+                </div>
+              </div>
+
+              <div class="field">
+                <label
+                  >Options — select the correct answer with the radio
+                  button</label
+                >
+                <div class="ans-row">
+                  <input type="radio" name="q-correct" value="0" />
+                  <input class="input" id="q-opt-0" placeholder="Option A" />
+                </div>
+                <div class="ans-row mt-8">
+                  <input type="radio" name="q-correct" value="1" />
+                  <input class="input" id="q-opt-1" placeholder="Option B" />
+                </div>
+                <div class="ans-row mt-8">
+                  <input type="radio" name="q-correct" value="2" />
+                  <input class="input" id="q-opt-2" placeholder="Option C" />
+                </div>
+                <div class="ans-row mt-8">
+                  <input type="radio" name="q-correct" value="3" />
+                  <input class="input" id="q-opt-3" placeholder="Option D" />
+                </div>
+                <div class="field-error" id="q-err-opts">
+                  Fill in all four options.
+                </div>
+                <div class="field-error" id="q-err-ans">
+                  Select the correct answer.
+                </div>
+              </div>
+
+              <div class="row gap-8">
+                <button class="btn btn-primary" onclick="Admin.saveQuestion()">
+                  Save question
+                </button>
+                <button class="btn btn-ghost" onclick="Admin.resetForm()">
+                  Cancel
+                </button>
+              </div>
+            </div>
+
+            <!-- filter -->
+            <div class="row-between mb-16">
+              <strong style="font-size: 15px">All questions</strong>
+              <select
+                class="input"
+                id="q-filter"
+                style="width: auto"
+                onchange="Admin.filterQuestions()"
+              >
+                <option value="all">All courses</option>
+              </select>
+            </div>
+
+            <!-- list -->
+            <div id="q-list">
+              <div class="empty">Loading…</div>
+            </div>
+          </div>
+
+          <!-- leaderboard -->
+          <div class="tab-pane" id="tab-leaderboard">
+            <div class="sh">
+              <h1>Manage Leaderboard</h1>
+              <p>All quiz scores, best first.</p>
+            </div>
+
+            <div class="card" style="overflow-x: auto">
+              <table class="tbl">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Course</th>
+                    <th>Score</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="lb-body">
+                  <tr>
+                    <td colspan="5" class="empty">No scores yet.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- script -->
+
+    <script src="js/data.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/admin.js"></script>
+
+    <!-- <footer>
+  <p>Quiz App &copy; 2026</p>
+</footer> -->
+  </body>
+</html>
