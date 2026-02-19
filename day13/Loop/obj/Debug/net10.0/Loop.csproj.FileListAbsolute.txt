@@ -1,0 +1,15 @@
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.GeneratedMSBuildEditorConfig.editorconfig
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.AssemblyInfoInputs.cache
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.AssemblyInfo.cs
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.csproj.CoreCompileInputs.cache
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.sourcelink.json
+C:\training\claysys-training\day13\Loop\bin\Debug\net10.0\Loop.exe
+C:\training\claysys-training\day13\Loop\bin\Debug\net10.0\Loop.deps.json
+C:\training\claysys-training\day13\Loop\bin\Debug\net10.0\Loop.runtimeconfig.json
+C:\training\claysys-training\day13\Loop\bin\Debug\net10.0\Loop.dll
+C:\training\claysys-training\day13\Loop\bin\Debug\net10.0\Loop.pdb
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.dll
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\refint\Loop.dll
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.pdb
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\Loop.genruntimeconfig.cache
+C:\training\claysys-training\day13\Loop\obj\Debug\net10.0\ref\Loop.dll
