@@ -4,7 +4,7 @@ const Storage = {
   // keys
   KEYS: {
     questions:   'qa_custom_questions',   // { courseId: [ {q,opts,ans} ] }
-    leaderboard: 'qa_leaderboard',        // [ {name, courseId, score, ...} ]
+    leaderboard: 'qa_leaderboard',        // [ {name, courseId, score, date} ]
   },
 
   // custom qsns
