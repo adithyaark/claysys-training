@@ -1,7 +1,7 @@
 // P2 & P3 - Quiz & Summary
 const Quiz = {
 
-// start
+  // start
   start() {
     // Header info
     document.getElementById('qb-course').textContent = App.course.title;
@@ -67,9 +67,9 @@ const Quiz = {
   // P3 -summary
   showSummary() {
     if (this.timerId) {
-    clearTimeout(this.timerId);  
-    this.timerId = null;
-  }
+      clearTimeout(this.timerId);  
+      this.timerId = null;
+    }
     const qs      = App.questions;
     const as      = App.answers;
     const correct = qs.filter((q, i) => as[i] === q.ans).length;
@@ -103,30 +103,31 @@ const Quiz = {
     go('summary');
   },
 
-  // Add to Quiz object (top level):
-timerId: null,
-timeLeft: 900,  // 15:00 = 900 seconds
-tick() {  // Single tick function
-  this.timeLeft--;
-  
-  // Update display
-  const min = Math.floor(this.timeLeft / 60);
-  const sec = this.timeLeft % 60;
-  document.getElementById('timer-min').textContent = min.toString().padStart(2, '0');
-  document.getElementById('timer-sec').textContent = sec.toString().padStart(2, '0');
-  
-  // Visual states
-  const timerEl = document.getElementById('quiz-timer');
-  timerEl.className = 
-    this.timeLeft < 300 ? 'prog-timer warning' : 
-    this.timeLeft < 60  ? 'prog-timer danger' : 'prog-timer';
-  
-  // Continue or end
-  if (this.timeLeft > 0) {
-    this.timerId = setTimeout(() => this.tick(), 1000);  // Next tick
-  } else {
-    this.showSummary();  // Time up!
-  }
-},
+  // Timer properties
+  timerId: null,
+  timeLeft: 600,  
+
+  tick() {  
+    this.timeLeft--;
+    
+    // Update display
+    const min = Math.floor(this.timeLeft / 60);
+    const sec = this.timeLeft % 60;
+    document.getElementById('timer-min').textContent = min.toString().padStart(2, '0');
+    document.getElementById('timer-sec').textContent = sec.toString().padStart(2, '0');
+    
+    // Visual states
+    const timerEl = document.getElementById('quiz-timer');
+    timerEl.className = 
+      this.timeLeft < 300 ? 'prog-timer warning' : 
+      this.timeLeft < 60  ? 'prog-timer danger' : 'prog-timer';
+    
+    // Continue or end
+    if (this.timeLeft > 0) {
+      this.timerId = setTimeout(() => this.tick(), 1000);  
+    } else {
+      this.showSummary();  
+    }
+  },
 
 };
