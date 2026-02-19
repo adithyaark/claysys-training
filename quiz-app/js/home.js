@@ -45,7 +45,7 @@ const Home = {
     const nameEl = document.getElementById('name-' + courseId);
     const errEl  = document.getElementById('err-' + courseId);
     const name   = nameEl?.value.trim();
-    Quiz.timeLeft = 900;  // Reset for new quiz
+    Quiz.timeLeft = 600;  
 
 
     // Validation
