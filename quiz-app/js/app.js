@@ -5,7 +5,7 @@ const App = {
   userName:     '',
   questions:    [],
   currentQ:     0,
-  answers:      [],             // null | index
+  answers:      [],             
 };
 
 // routing the page
