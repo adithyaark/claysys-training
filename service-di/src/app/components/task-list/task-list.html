@@ -1,0 +1,12 @@
+<h2>Task Manager</h2>
+
+<input [(ngModel)]="newTask" placeholder="Enter task" />
+<button (click)="add()">Add Task</button>
+
+<ul>
+  @for (task of tasks; track task) {
+    <li>
+      {{ task }}
+    </li>
+  }
+</ul>

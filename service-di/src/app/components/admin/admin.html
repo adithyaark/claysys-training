@@ -1,0 +1,15 @@
+<h3>Admin View</h3>
+<button (click)="show()">Show Tasks</button>
+
+@if (tasks.length > 0) {
+  <ul>
+    @for (task of tasks; track task) {
+      <li>{{ task }}</li>
+    }
+  </ul>
+} @else {
+  <p>No tasks to show yet.</p>
+}
+
+<hr>
+<app-task-list></app-task-list>
