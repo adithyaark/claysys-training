@@ -1,0 +1,88 @@
+<div class="auth-container">
+  <div class="auth-card animate-in">
+    <div class="auth-header">
+      <h1>{{ isLogin ? 'Welcome Back' : 'Create Account' }}</h1>
+      <p>{{ isLogin ? 'Login to continue your quiz journey' : 'Join us and start learning today' }}</p>
+    </div>
+
+    <form (submit)="onSubmit()" #authForm="ngForm">
+      <div class="form-group" *ngIf="!isLogin">
+        <label for="username">Username</label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            [(ngModel)]="username" 
+            placeholder="Choose a username"
+            required
+            #usernameModel="ngModel"
+          >
+          <span class="input-icon">👤</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <div class="input-wrapper">
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="email" 
+            placeholder="Enter your email"
+            required
+            #emailModel="ngModel"
+          >
+          <span class="input-icon">✉️</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            [(ngModel)]="password" 
+            placeholder="Enter your password"
+            required
+            #passwordModel="ngModel"
+          >
+          <span class="input-icon">🔒</span>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="!isLogin">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-wrapper">
+          <input 
+            type="password" 
+            id="confirmPassword" 
+            name="confirmPassword" 
+            [(ngModel)]="confirmPassword" 
+            placeholder="Confirm your password"
+            required
+            #confirmModel="ngModel"
+          >
+          <span class="input-icon">🛡️</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block" [disabled]="loading || !authForm.form.valid">
+        <span *ngIf="loading" class="loader"></span>
+        <span *ngIf="!loading">{{ isLogin ? 'Login' : 'Sign Up' }}</span>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>
+        {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+        <a href="javascript:void(0)" (click)="toggleMode()">
+          {{ isLogin ? 'Sign Up' : 'Login' }}
+        </a>
+      </p>
+    </div>
+  </div>
+</div>

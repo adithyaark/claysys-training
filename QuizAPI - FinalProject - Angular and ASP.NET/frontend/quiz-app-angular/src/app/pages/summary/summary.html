@@ -1,0 +1,17 @@
+<div class="wrap-sm">
+  <div class="card">
+    <div class="summary-score">
+      <div class="score-num">{{ correct }} / {{ total }}</div>
+      <div class="score-label">Score &nbsp;·&nbsp; {{ pct }}%</div>
+      <div class="score-grade">{{ grade }}</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box ok"><div class="sv">{{ correct }}</div><div class="sl">Correct</div></div>
+      <div class="stat-box bad"><div class="sv">{{ wrong }}</div><div class="sl">Wrong</div></div>
+      <div class="stat-box blue"><div class="sv">{{ total }}</div><div class="sl">Total</div></div>
+    </div>
+    <div class="summary-actions">
+      <a class="btn btn-primary" routerLink="/home">Choose another course</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<nav class="nav">
+  <div class="nav-brand">QuizApp<span></span></div>
+  <div class="nav-links">
+    <a class="btn btn-ghost btn-sm" routerLink="/home" routerLinkActive="is-active">Home</a>
+    <a class="btn btn-ghost btn-sm" routerLink="/register" routerLinkActive="is-active">Register</a>
+    <a class="btn btn-ghost btn-sm" routerLink="/admin" routerLinkActive="is-active">Admin</a>
+  </div>
+</nav>
+
+<div class="toast"
+     [class.show]="!!(toast.message$ | async)">
+  {{ toast.message$ | async }}
+</div>
+
+<router-outlet></router-outlet>

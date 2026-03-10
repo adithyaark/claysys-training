@@ -1,0 +1,173 @@
+<div class="admin-shell">
+  <!-- Sidebar -->
+  <aside class="admin-side">
+    <div class="side-label">Admin</div>
+    <button class="side-btn" [class.is-active]="activeTab === 'dashboard'" (click)="switchTab('dashboard')">
+      Dashboard
+    </button>
+    <button class="side-btn" [class.is-active]="activeTab === 'questions'" (click)="switchTab('questions')">
+      Questions
+    </button>
+    <button class="side-btn" [class.is-active]="activeTab === 'leaderboard'" (click)="switchTab('leaderboard')">
+      Leaderboard
+    </button>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+
+    <!-- Dashboard -->
+    <div *ngIf="activeTab === 'dashboard'">
+      <div class="sh">
+        <h1>Admin Dashboard</h1>
+        <p>Overview of the quiz app.</p>
+      </div>
+
+      <div class="stat-cards">
+        <div class="stat-card">
+          <div class="sc-num">{{ courses.length }}</div>
+          <div class="sc-lbl">Courses</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-num">{{ qCount }}</div>
+          <div class="sc-lbl">Custom questions</div>
+        </div>
+        <div class="stat-card">
+          <div class="sc-num">{{ quizzesTaken }}</div>
+          <div class="sc-lbl">Quizzes taken</div>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <p style="color: var(--ink-soft); font-size: 14px;">Use the sidebar to manage questions and view the leaderboard.</p>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div *ngIf="activeTab === 'questions'">
+      <div class="sh">
+        <h1>Create/Edit Questions</h1>
+        <p>Add, edit or delete custom questions.</p>
+      </div>
+
+      <div class="form-panel" [class.editing]="isEditing">
+        <h3>{{ isEditing ? 'Edit' : 'Add' }} question</h3>
+
+        <form [formGroup]="form" (submit)="saveQuestion()">
+          <div class="form-group">
+            <label class="field-label">COURSE</label>
+            <select formControlName="quizId" class="input">
+              <option [ngValue]="null">Select a Quiz</option>
+              @for (quiz of quizzes; track quiz.id) {
+                <option [value]="quiz.id">{{ quiz.courseName }} - {{ quiz.title }}</option>
+              }
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">QUESTION TEXT</label>
+            <textarea formControlName="text" class="input" rows="2" placeholder="Type your question..."></textarea>
+            @if (showError('text')) { <div class="field-error show">{{ getFieldError('text') }}</div> }
+          </div>
+
+          <div class="form-group">
+            <label class="field-label">OPTIONS — SELECT THE CORRECT ANSWER WITH THE RADIO BUTTON</label>
+            <div formArrayName="options">
+              @for (ctrl of options.controls; track $index; let i = $index) {
+                <div class="ans-row">
+                  <input type="radio" 
+                    [value]="['A','B','C','D'][i]" 
+                    [checked]="form.get('correctAnswer')?.value === ['A','B','C','D'][i]"
+                    (change)="form.get('correctAnswer')?.setValue(['A','B','C','D'][i])"
+                    [attr.name]="'correct_ans'">
+                  <input type="text" [formControlName]="i" class="input" [placeholder]="'Option ' + ['A','B','C','D'][i]">
+                </div>
+              }
+            </div>
+            @if (showError('correctAnswer')) { <div class="field-error show">Please select the correct answer.</div> }
+          </div>
+
+          <div class="btn-group">
+            <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">Save question</button>
+            <button type="button" class="btn btn-ghost" (click)="resetForm()" *ngIf="isEditing">Cancel</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="sh" style="margin-top: 40px; display: flex; justify-content: space-between; align-items: center;">
+        <h2>All questions</h2>
+        <div class="row">
+          <button type="button" class="btn btn-ghost btn-sm" (click)="onQuizFilterChange()" [disabled]="isSubmitting">🔄 Refresh</button>
+          <select class="input" style="width: auto;" [(ngModel)]="filterQuizId" (change)="onQuizFilterChange()">
+            <option value="all">All courses</option>
+            @for (quiz of quizzes; track quiz.id) {
+              <option [value]="quiz.id">{{ quiz.courseName }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="q-list">
+        @if (isLoadingQuestions) {
+          <div class="empty">
+            <span class="t-muted">Loading questions...</span>
+          </div>
+        } @else {
+          @for (q of filteredQuestions; track q.id) {
+            <div class="q-item">
+              <div class="q-item-body">
+                <div class="q-item-text">{{ q.text || 'Untitled Question' }}</div>
+                <div class="q-item-meta">
+                  <span>{{ getCourseName(q.quizId) }}</span>
+                  @if (q.isCustom) {
+                    <span class="badge badge-green" style="margin-left: 10px; font-size: 10px;">Custom</span>
+                  }
+                </div>
+              </div>
+              <div class="q-item-actions">
+                <button class="btn btn-ghost btn-sm" (click)="editQuestion(q)">Edit</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteQuestion(q.id)">Delete</button>
+              </div>
+            </div>
+          } @empty {
+            <div class="empty">No questions found. Try adding a new one above.</div>
+          }
+        }
+      </div>
+    </div>
+
+    <!-- Leaderboard -->
+    <div *ngIf="activeTab === 'leaderboard'">
+      <div class="sh">
+        <h1>Manage Leaderboard</h1>
+        <p>All quiz scores, best first.</p>
+      </div>
+
+      <div class="form-panel" style="padding: 0; overflow: hidden;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>NAME</th>
+              <th>COURSE</th>
+              <th>SCORE</th>
+              <th>DATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (res of leaderboard; track res.id; let i = $index) {
+              <tr>
+                <td>{{ i + 1 }}</td>
+                <td>{{ res.username }}</td>
+                <td>{{ res.courseTitle }}</td>
+                <td>{{ res.correctAnswers }}/{{ res.totalQuestions }} ({{ (res.correctAnswers/res.totalQuestions)*100 | number:'1.0-0' }}%)</td>
+                <td>{{ res.takenAt | date:'M/d/yyyy' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>

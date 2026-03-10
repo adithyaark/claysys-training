@@ -1,0 +1,61 @@
+<div class="page active">
+  <div class="wrap">
+    <div class="sh">
+      <h1>Pick a course</h1>
+      <p>Enter your name on the card and hit Start.</p>
+      @if (error) {
+        <div style="background: #fff5f5; border: 1px solid #feb2b2; padding: 12px; border-radius: 8px; margin-top: 10px; color: #c53030; font-size: 13px;">
+          <strong>Error:</strong> {{ error }}
+          <br>
+          <button (click)="loadData()" style="margin-top: 8px; cursor: pointer; text-decoration: underline; background: none; border: none; font-weight: bold; color: #2563eb;">
+            Click here to try again
+          </button>
+        </div>
+      }
+    </div>
+
+    @if (loading && courses.length === 0) {
+      <div class="loader-wrap">
+        <div class="loader"></div>
+      </div>
+    }
+
+    <div class="course-grid">
+      @for (course of courses; track course.id) {
+        <div class="course-card"
+             [class.selected]="selectedCourseId === course.id"
+             (click)="pick(course.id)">
+
+          <div class="cc-title">{{ course.title }}</div>
+          <div class="cc-meta">{{ course.description }}</div>
+
+          <div class="field">
+            <label>Your name</label>
+            <input class="input"
+                   [formControl]="nameControls[course.id]"
+                   placeholder="Enter your name"
+                   (click)="$event.stopPropagation()"
+                   (keydown.enter)="start(course)">
+            @if (getError(course.id)) {
+              <div class="field-error show">
+                {{ getError(course.id) }}
+              </div>
+            }
+          </div>
+
+          <button class="btn btn-primary btn-block btn-sm"
+                  [disabled]="loading"
+                  (click)="$event.stopPropagation(); start(course)">
+            {{ loading && selectedCourseId === course.id ? 'Loading...' : 'Start Quiz →' }}
+          </button>
+        </div>
+      } @empty {
+        @if (!loading) {
+          <div class="empty-state">
+            <p>No courses found. Ensure the backend is running and database is seeded.</p>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</div>

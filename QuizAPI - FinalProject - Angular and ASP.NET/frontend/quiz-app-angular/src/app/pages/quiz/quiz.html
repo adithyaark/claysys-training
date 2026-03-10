@@ -1,0 +1,39 @@
+<div class="quiz-bar">
+  <div class="qb-left">{{ state.course?.title }}</div>
+  <div class="qb-right">👤 {{ state.userName }}</div>
+</div>
+
+<div class="wrap-sm" style="padding-bottom:0; padding-top:20px">
+  <div class="prog-label">
+    <span>Question {{ num }} of {{ total }}</span>
+  </div>
+  <div [class]="timerClass">{{ timerMin }}:{{ timerSec }}</div>
+  <div class="prog-track">
+    <div class="prog-fill" [style.width]="pct + '%'"></div>
+  </div>
+</div>
+
+<div class="question-wrap">
+  <div class="q-tag">Question {{ num }} of {{ total }}</div>
+  <div class="q-text">{{ q.text }}</div>
+  <div class="options">
+    <button [class]="optClass('A')" [disabled]="answered" (click)="answer('A')">
+      <span class="opt-key">A</span> {{ q.optionA }}
+    </button>
+    <button [class]="optClass('B')" [disabled]="answered" (click)="answer('B')">
+      <span class="opt-key">B</span> {{ q.optionB }}
+    </button>
+    <button [class]="optClass('C')" [disabled]="answered" (click)="answer('C')">
+      <span class="opt-key">C</span> {{ q.optionC }}
+    </button>
+    <button [class]="optClass('D')" [disabled]="answered" (click)="answer('D')">
+      <span class="opt-key">D</span> {{ q.optionD }}
+    </button>
+  </div>
+  <div class="q-nav">
+    <div></div>
+    <button class="btn btn-primary" (click)="next()">
+      {{ isLast ? 'Finish ✓' : 'Next →' }}
+    </button>
+  </div>
+</div>
