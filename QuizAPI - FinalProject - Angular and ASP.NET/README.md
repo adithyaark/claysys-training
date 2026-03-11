@@ -34,8 +34,5 @@ dotnet restore
 dotnet ef database update
 dotnet run
 
-```bash
-cd "QuizAPI - FinalProject - Angular and ASP.NET/Frontend"
-npm install
-ng serve
+
 
