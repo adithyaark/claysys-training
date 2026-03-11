@@ -33,3 +33,10 @@ cd "QuizAPI - FinalProject - Angular and ASP.NET/Backend"
 dotnet restore
 dotnet ef database update
 dotnet run
+
+### Frontend Setup
+```bash
+cd "QuizAPI - FinalProject - Angular and ASP.NET/Frontend"
+npm install
+ng serve
+
